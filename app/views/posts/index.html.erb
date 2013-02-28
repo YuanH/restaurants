@@ -1,0 +1,48 @@
+<div class="hero-unit">
+  <h1>Yuan's Restaurant Picks</h1>
+  <p>This documents all the restaurants that I recommend in New York City. More to come</p>
+  <p><a class="btn btn-primary btn-large" href = /posts/new >New Post</a></p>
+</div>
+
+
+
+
+
+
+
+<div class = "container">
+
+<% @posts.each do |post| %>
+	<p>
+		<h2><%= link_to 'Restaurant Name: ' + post.name, post%></h2>
+	</p>
+	<p>
+		<b>URL:</b>
+		<%= link_to post.url, post.url %>
+	</p>
+	<p>
+		<b>Address:</b>
+		<%= post.location %>
+	</p>
+	<p>
+		<b>Review:</b>
+		<%= post.review %>
+	</p>
+	
+	<%= render 'gmap' %>
+
+	
+	
+	<p>	<button class="btn btn-mini btn-primary" type="button"><%= link_to 'Show', post %></button>
+  		<button class="btn btn-mini btn-primary" type="button"><%= link_to 'Edit', edit_post_path(post) %></button>
+  		<button class="btn btn-mini btn-primary" type="button"><%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+	</p>  
+
+<% end %>
+
+<%= link_to 'New Post', new_post_path %>
+
+</div>
+<br />
+
+

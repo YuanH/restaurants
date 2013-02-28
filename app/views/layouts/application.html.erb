@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Restaurants</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+
+<%-# google maps -%>
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhVQ3jRu6QKXMii_k1zMlkH_bd9V1hfPk&sensor=false">
+</script>
+
+<style type="text/css">
+  html { height: 100%; }
+  body { height: 100%; margin: 0; padding: 0 }
+  #map_canvas { height: 500px; width: 500px }
+</style>
+
+<script type="text/javascript">
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(40.714, -74.006),
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        mapOptions);
+  }
+</script>
+
+<%-#devise user sign in -%>
+
+<body>
+	
+	<div id="user_nav">
+	  <% if user_signed_in? %>
+	    Signed in as <%= current_user.email %>. Not you?
+	    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+	  <% else %>
+	    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+	  <% end %>
+	</div>
+	
+<%= yield %>
+
+</body>
+</html>
