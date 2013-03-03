@@ -4,12 +4,6 @@
   <p><a class="btn btn-primary btn-large" href = /posts/new >New Post</a></p>
 </div>
 
-
-
-
-
-
-
 <div class = "container">
 
 <% @posts.each do |post| %>
@@ -28,9 +22,9 @@
 		<b>Review:</b>
 		<%= post.review %>
 	</p>
-	
-	<%= render 'gmap' %>
 
+
+	<%= link_to (image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=14&markers=#{post.location}"), post %>
 	
 	
 	<p>	<button class="btn btn-mini btn-primary" type="button"><%= link_to 'Show', post %></button>
