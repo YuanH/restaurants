@@ -4,4 +4,6 @@ class Post < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validates :review, :presence => true
   
+  has_many :comments
+  
 end

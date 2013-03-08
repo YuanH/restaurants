@@ -22,6 +22,38 @@
 
 	<%= render 'gmap' %>
 
+<h3>Comments</h3>
+<% @post.comments.each do |comment|%>
+	<div id = "comment">
+		<p>
+			<strong>Commented <%= time_ago_in_words(comment.created_at)%></strong>
+			<br />
+				User Email: <%=  comment.email %>
+			<br />
+				User Comment: <%=  comment.content %>
+			<br />
+		</p>
+	</div>
+<% end %>
+
+<%=form_for [@post, Comment.new] do |f|%>
+
+	<div class="field">
+		<%= f.label :email, "User's Email Address: " + current_user.email%><br />
+		<%-# @post.comments.create(email: current_user.email) %>
+	</div>
+
+	<div class="field">
+  		<%= f.label :content, "New Comment" %><br />
+  		<%= f.text_area :content %>
+	</div>
+	
+  	<div class="actions">
+    	<%= f.submit %>
+  </div>
+
+
+<%end%>
 
 
 <button class="btn btn-mini btn-primary" type="button"><%= link_to 'Edit', edit_post_path(@post) %></button> |
