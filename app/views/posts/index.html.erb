@@ -1,41 +1,55 @@
 <div class="hero-unit">
-  <h1>Yuan's Restaurant Picks</h1>
+  <h1>Yuan's NYC Restaurant Picks</h1>
   <p>This documents all the restaurants that I recommend in New York City. More to come</p>
-  <p><a class="btn btn-primary btn-large" href = /posts/new >New Post</a></p>
+  <%= link_to 'New Post',new_post_path, :class => 'btn btn-large' %>
+	<!--<p><a class="btn btn-primary btn-large" href = /posts/new >New Post</a></p>-->
 </div>
 
-<div class = "container">
+<div class = "container-fluid">
+	<div class = "row-fluid">
+		<div class = "span12">
+
+<h2>Export to:</h2>
+<%= link_to "CSV", posts_path(format: "csv") %>
+
+<h2>Import Restaurants</h2>
+<%= form_tag import_posts_path, multipart: true do %>
+	<%= file_field_tag :file%>
+	<%= submit_tag "Import" %>
+<%end%>
+	
+<table cellpadding ="5" class="table table-striped">
+  <tr>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "url"%></th>
+    <th><%= sortable "area"%></th>
+    <th><%= sortable "cuisine"%></th>
+ 		<th><%= sortable "yelp_price", "Yelp Price" %></th>
+    <th><%= sortable "zagat_price", "Zagat Price"%></th>
+    <th><%= sortable "yelp", "Yelp Rating"%></th>
+    <th><%= sortable "michelin_rating", "Michelin Stars"%></th>
+    <th><%= sortable "location", "Address" %></th>
+		<th></th>
+		<th></th>
+  </tr>
 
 <% @posts.each do |post| %>
-	<p>
-		<h2><%= link_to 'Restaurant Name: ' + post.name, post%></h2>
-	</p>
-	<p>
-		<b>URL:</b>
-		<%= link_to post.url, post.url %>
-	</p>
-	<p>
-		<b>Address:</b>
-		<%= post.location %>
-	</p>
-	<p>
-		<b>Review:</b>
-		<%= post.review %>
-	</p>
-
-
-	<%= link_to (image_tag "http://maps.google.com/maps/api/staticmap?size=800x500&sensor=false&zoom=16&markers=#{post.location}"), post %>
-	
-	
-	<p>	<button class="btn btn-mini btn-primary" type="button"><%= link_to 'Show', post %></button>
-  		<button class="btn btn-mini btn-primary" type="button"><%= link_to 'Edit', edit_post_path(post) %></button>
-  		<button class="btn btn-mini btn-primary" type="button"><%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %></button>
-	</p>  
-
+	<tr>
+		<td><%= link_to post.name, post%></td>
+		<td  align = "center"><%= link_to post.url, post.url, target: "_blank" %></td>
+		<td  align = "center"><%= post.area %></td>
+		<td  align = "center"><%= post.cuisine %></td>
+		<td  align = "center"><%= post.yelp_price %></td>
+		<td  align = "center"><%= post.zagat_price %></td>
+		<td  align = "center"><%= post.yelp %></td>
+		<td  align = "center"><%= post.michelin_rating %></td>
+		<td  align = "center"><%= post.location %></td>
+		<td><%= link_to 'Show',post, class: 'btn btn-mini' %></td>
+		<td><%= link_to 'Edit',edit_post_path(post), class: 'btn btn-mini' %></td>
+	</tr>
 <% end %>
-
-<%= link_to 'New Post', new_post_path %>
-
+		</div>
+	</div>
 </div>
 <br />
 

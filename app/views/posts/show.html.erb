@@ -1,61 +1,97 @@
 <p id="notice"><%= notice %></p>
 
 <div class="hero-unit">
-  <h1><%= @post.name %></h1>
+  <h1><%=@post.name%></h1>
+	<h3><%= link_to 'Home', posts_path %></h3>
 </div>
-<div class = "container">
+<div class = "container-fluid">
+	<div class = "row-fluid">
+			<div class = "span3 offset1">
+				
+				<table class="table table-hover">
+					<tr>
+						<th colspan = "2"><p>About <%= @post.name%></p></td>
+					</tr>
+					<tr>
+						<td><b>URL</b></td>
+						<td><%= link_to @post.url, @post.url%></td>
+					</tr>
+					<tr>
+						<td><b>Area</b></td>
+						<td><%= @post.area %></td>
+					</tr>
+					<tr>
+						<td><b>Location</b></td>
+						<td><%= @post.location %></td>
+					</tr>
+					<tr>
+						<td><b>Cuisine</b></td>
+						<td><%= @post.cuisine %></td>
+					</tr>
+					<tr>
+						<td colspan = "2" align = "center"><b>Price Range</b></td>
+					</tr>
+					<tr>
+						<td><b>Yelp:</b> <%= @post.yelp_price %></td>
+						<td><b>Zagat:</b> <%= @post.zagat_price %></td>
+					</tr>
+					<tr>
+						<td colspan = "2" align = "center"><b>Rating</b></td>
+					</tr>
+					<tr>
+						<td><b>Yelp:</b> <%= @post.yelp %> </td>
+						<td><b>Michelin:</b> <%= @post.michelin_rating %> </td>
+					</tr>
+					<tr>
+						<td colspan = "2" align = "center"><b>Review</b></td>
+					</tr>
+					<tr>
+						<td colspan = "2"><p><%= @post.review %></p></td>
+					</tr>
+				</table>
+	
+	<p>
+		<%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-mini' %>
+		<%= link_to 'Back', posts_path, class: 'btn btn-mini' %>
+	</p>
+	
+			</div>
 
-<p>
-  <b>Review:</b>
-  <%= @post.review %>
-</p>
-
-<p>
-  <b>Url:</b>
-  <%= link_to @post.url, @post.url%>
-</p>
-
-<p>
-  <b>Location:</b>
-  <%= @post.location %>
-</p>
-
-	<%= render 'gmap' %>
-
-<h3>Comments</h3>
-<% @post.comments.each do |comment|%>
-	<div id = "comment">
-		<p>
-			<strong>Commented <%= time_ago_in_words(comment.created_at)%></strong>
-			<br />
-				User Email: <%=  comment.email %>
-			<br />
-				User Comment: <%=  comment.content %>
-			<br />
-		</p>
+			<div class = "span8">
+		<%= render 'gmap' %>
 	</div>
+
+	</div>
+</div>
+	
+
+<div class = "container">
+<h3>Comments</h3>
+
+
+
+	<% @post.comments.each do |comment|%>
+		<div id = "comment">
+			<p>
+				<strong>Commented <%= time_ago_in_words(comment.created_at)%></strong>
+				<br />
+					User Email: <%=  comment.email %>
+				<br />
+					User Comment: <%=  comment.content %>
+				<br />
+
+				
+			</p>
+		</div>
+		<% end %>
+
+
+<% if user_signed_in? %>
+
+		<%= render 'commentform'%>
+	<% else %>
+		<h3><%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %> to leave a comment</h3>
 <% end %>
 
-<%=form_for [@post, Comment.new] do |f|%>
 
-	<div class="field">
-		<%= f.label :email, "User's Email Address: " + current_user.email%><br />
-		<%-# @post.comments.create(email: current_user.email) %>
-	</div>
-
-	<div class="field">
-  		<%= f.label :content, "New Comment" %><br />
-  		<%= f.text_area :content %>
-	</div>
-	
-  	<div class="actions">
-    	<%= f.submit %>
-  </div>
-
-
-<%end%>
-
-
-<button class="btn btn-mini btn-primary" type="button"><%= link_to 'Edit', edit_post_path(@post) %></button> |
-<button class="btn btn-mini btn-primary" type="button"><%= link_to 'Back', posts_path %></button>
 </div>

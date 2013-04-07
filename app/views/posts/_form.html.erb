@@ -23,6 +23,39 @@
     <%= f.label :location %><br />
     <%= f.text_field :location %>
   </div>
+
+  <div class="field">
+    <%= f.label :area %><br />
+    <%= f.text_field :area %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cuisine %><br />
+    <%= f.text_field :cuisine %>
+  </div>
+
+  <div class="field">
+    <%= f.label :yelp_price %><br />
+    <%= f.select :yelp_price, ['---SELECT---','$','$$','$$$', '$$$$', '$$$$$']%>
+  </div>
+
+  <div class="field">
+    <%= f.label :zagat_price %><br />
+    <%= f.text_field :zagat_price %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Yelp Rating"%><br />
+    <%= f.text_field :yelp %>
+  </div>
+
+  <div class="field">
+    <%= f.label :michelin_rating %><br />
+    <%= f.select :michelin_rating, ['--','*','**','***'] %>
+  </div>
+
+
+
   <div class="field">
     <%= f.label :review %><br />
     <%= f.text_area :review %>

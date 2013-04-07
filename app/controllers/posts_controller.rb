@@ -1,12 +1,15 @@
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
+  helper_method :sort_column, :sort_direction
   def index
-    @posts = Post.all
+    
+    @posts = Post.order(sort_column + ' ' + sort_direction)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
+      format.csv { render text: @posts.to_csv}
     end
   end
 
@@ -79,5 +82,23 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url }
       format.json { head :no_content }
     end
+  end
+  
+  def import
+    Post.import(params[:file])
+    redirect_to root_url, notice: "Restaurants imported."
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
+  
+  private
+  def sort_column
+    params[:sort] || "name"
+  end
+  
+  def sort_direction
+    params[:direction] || "asc"
   end
 end

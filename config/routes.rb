@@ -4,6 +4,7 @@ Restaurants::Application.routes.draw do
 
   resources :posts do
     resources :comments
+    collection { post :import }    
   end
   
   root :to => "posts#index"

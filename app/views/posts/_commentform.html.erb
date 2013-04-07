@@ -1,0 +1,21 @@
+<h3>Hi, <%= current_user.email %>, Leave a comment down below!</h3>
+<h4>Not you? <%= link_to "Sign out", destroy_user_session_path, :method => :delete %></h4>
+
+<%=form_for [@post, Comment.new] do |f|%>
+
+	<div class="field">
+		<%= f.label :email, "User's Email Address: "%> <br />
+		<%= f.text_field :email,:value => current_user.email, :readonly => "readonly" %>
+		<%-# @post.comments.create(email: current_user.email) %>
+	</div>
+
+	<div class="field">
+  		<%= f.label :content, "New Comment" %><br />
+  		<%= f.text_area :content %>
+	</div>
+	
+  	<div class="actions">
+    	<%= f.submit %>
+  </div>
+
+<%end%>
