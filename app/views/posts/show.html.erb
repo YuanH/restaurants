@@ -49,7 +49,18 @@
 						<td colspan = "2"><p><%= @post.review %></p></td>
 					</tr>
 				</table>
+				
+			<%= link_to 'yelp search by location',"http://api.yelp.com/business_review_search?location=#{@post.location}&ywsid=c6Cy55LCffDPiLk8mpxhUQ"%>	
 	
+			<%= link_to 'yelp search by name',"http://api.yelp.com/business_review_search?term=#{@post.name}&ywsid=c6Cy55LCffDPiLk8mpxhUQ"%>	
+			<%= link_to 'yelp search by location & name',"http://api.yelp.com/business_review_search?term=#{@post.name}&location=#{@post.location}&ywsid=c6Cy55LCffDPiLk8mpxhUQ"%>	
+			
+			<script type="javascript">
+				var YelpAPI = "http://api.yelp.com/business_review_search?term=#{@post.name}&location=#{@post.location}&ywsid=c6Cy55LCffDPiLk8mpxhUQ"; $.getJSON( YelpAPI, {
+					
+				})
+			</script>
+			
 	<p>
 		<%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-mini' %>
 		<%= link_to 'Back', posts_path, class: 'btn btn-mini' %>

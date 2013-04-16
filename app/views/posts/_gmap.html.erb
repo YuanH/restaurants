@@ -18,8 +18,7 @@
             position: results[0].geometry.location
         });
 
-		contentString = '<h3><%= @post.name -%></h3>' +
-		'<b>Address: </b>' + address
+		contentString = '<h3><%= @post.name -%></h3>' + '<b>Address: </b>' + address
 
 		var infowindow = new google.maps.InfoWindow({
 			content: contentString
